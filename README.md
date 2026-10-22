@@ -10,6 +10,8 @@ Select a finding to pause and seek one second before it starts. Watch it, choose
 
 Export is available as soon as analysis succeeds, including while playback is pending or unavailable. It preserves explicit decisions and identifies every remaining Unreviewed finding. Print the downloaded HTML using the browser’s Print command. [Build and review progress](devpost/checklist.md).
 
+For source navigation, key design decisions and where to make changes, open the standalone [app map](devpost/app-map.html). It works offline with scripts disabled.
+
 ## Run locally
 
 Tested on Linux with Python 3.12, Node.js 24, FFmpeg/ffprobe 6.1.1 and Google Chrome 155. Install native FFmpeg with H.264, ProRes, VP9, AAC, PCM and Opus decoders, libx264/AAC encoders, and the blackdetect/freezedetect/silencedetect/metadata filters. Chrome is the first supported browser.

@@ -57,24 +57,24 @@ We will build small, usable increments. Each step crosses the necessary layers, 
 
 Slice 1 is implemented and mechanically verified: 26 backend tests, two frontend unit tests, the production build, and 16 distinct Chrome integration cases passed. See [the evidence](validation/slice-1/README.md). The app is available at http://127.0.0.1:8765 for the early hands-on check. The learner explicitly requested continuation on 22 October without supplying hands-on observations. The early feedback pause is deferred to final exploration; no learner testing is claimed. Review decisions and filters are verified in slice 2; offline HTML export is verified in slice 3.
 
-- [ ] Early usable behavior explored — deferred to final exploration at the learner’s explicit continuation request; no hands-on feedback has been supplied.
-- [ ] Final kick-the-tires exploration and feedback completed — after slice 4, learner tries the full workflow and any agreed corrections.
+- [x] Early checkpoint disposition recorded — deferred at the learner’s explicit continuation request and consolidated into final review; no separate early hands-on session is claimed.
+- [x] Final feedback received — on 22 October the learner accepted the completed app without requesting changes. No particular personal-video or native print-dialog test is inferred from that brief approval.
 
 ## Final Review
 
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship.
+- [x] Final review complete — the learner approved the completed app on 22 October; no corrections were requested.
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — use the actual original/preview timestamp path and one test to explain how the plan became a verifiable implementation; adapt if useful practice already occurred.
-- [ ] Optional edit and transfer reflection addressed — offered, declined, already covered, or not applicable as appropriate.
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse.
+- [x] Learning wrap-up complete — focused evidence-based recap connects the learner’s earlier original/preview scope decision to a measurable acceptance criterion and actual browser frame checks. This is a recap, not a claim of hands-on code practice or demonstrated mastery.
+- [x] Optional edit and transfer reflection addressed — an edit is not applicable to the focused recap. One optional transfer question is included in the closing handoff; no answer is recorded or required.
+- [x] `devpost/app-map.html` generated from finished code, checked offline in Chrome with scripts disabled, visually inspected at desktop/narrow widths, and provided as the take-home reference.
 
-Activity and evidence: Not started. Record actual code/test references and learner participation after final review.
-Route and stops: Choose actual symbols from the implemented media pipeline, playback selection and alignment test; no completed route is claimed.
-Edit outcome: Not offered yet.
-Reflection: Not offered yet; personal answers belong in the ignored learner profile.
-Activity mode: Planned focused investigation suited to the learner's engineering experience.
+Activity and evidence: The learner explicitly distinguished original analysis from browser playback during planning and required compatible previews with aligned timestamps. The closing recap connects that actual product decision to `spec.md > Timestamp and Duration Contract`, `framecheck/media.py > ffmpeg_input / analyze / make_preview`, and `frontend/e2e/performance.spec.ts`. The near-limit result records at most 0.025065 seconds of original/preview frame-time difference against the 0.10-second criterion. No new learner observations or code execution are claimed.
+Route and stops: Reference route only: `framecheck/jobs.py > JobManager.process`, `framecheck/media.py > ffmpeg_input / inspect_media`, and `frontend/src/App.tsx > selectFinding` with `review.ts > contextStart / nextUnreviewed`.
+Edit outcome: Not applicable; no code change was needed for this focused recap.
+Reflection: Optional in closing message; no response recorded. Any later personal answer belongs in the ignored learner profile.
+Activity mode: Focused evidence-based recap of a real planning decision and its verification, with an offline reference map. All mapped paths and anchors were checked against source snapshot `dbcee5a`.
 
 ## Revisions
 
@@ -89,7 +89,7 @@ Activity mode: Planned focused investigation suited to the learner's engineering
 
 The learner requested continuation after the usage window renewed (1% used at resume). The stop rule remains 99% used. No reset credit was spent by the agent.
 
-Slice 1 is committed as `64c3e45`. Slice 2 now passes its six unit tests, production build and three focused Chrome cases, including playback-unavailable classification. Desktop and narrow screenshots are inspected; evidence is in `validation/slice-2/README.md`. The early hands-on check remains deferred by the learner; final exploration is still required.
+Slice 1 is committed as `64c3e45`. Slice 2 now passes its six unit tests, production build and three focused Chrome cases, including playback-unavailable classification. Desktop and narrow screenshots are inspected; evidence is in `validation/slice-2/README.md`. The early check was deferred by the learner; final approval is recorded above.
 
 - Slice 3 validates printing through Chrome’s print engine and inspection of every rendered PDF page. Native print-dialog UI inspection remains part of final learner exploration; no such inspection is claimed.
 
@@ -101,4 +101,4 @@ Slice 1 is committed as `64c3e45`. Slice 2 now passes its six unit tests, produc
 
 All four implementation slices are mechanically verified. Slice 1 is `64c3e45`, slice 2 is `2770c04`, and slice 3 is `84382da`; slice 4 is `eb61bd7`. The complete backend suite passes 30 tests, frontend unit tests pass nine tests, and the ordinary Chrome suite passes 26 cases with the optional near-limit case skipped when no large fixture is supplied. That optional case passed separately with the 482.8 MB fixture. Production build passes. Evidence and commands: `validation/slice-4/README.md`.
 
-The app is available on port 8765 with no current job at the handoff check. Browser tests used isolated port 8766. The next required workflow step is final hands-on learner exploration: try the complete demo and a representative personal video, inspect the downloaded HTML and native print preview, and report actual observations. Do not mark final review or learning wrap-up complete without that interaction. After any agreed fixes and explicit readiness confirmation, complete the focused code investigation and app map from the 5-build skill.
+The app is available on port 8765 with no current job at the handoff check. Browser tests used isolated port 8766. The learner subsequently approved the app without requesting changes. Final review and the focused evidence recap/app map are complete as recorded above. Specific personal-video and native print-dialog checks remain unreported, and no such execution is claimed. Build workflow 5-build is complete; the next workflow is 6-ship for a public repository, accessible demo video and learner-authored submission. Public publishing has not been authorized or performed.
