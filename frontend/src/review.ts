@@ -71,3 +71,34 @@ export function contextStart(finding: Finding): number {
 export function formatDuration(seconds: number): string {
   return `${seconds.toFixed(3)} s`
 }
+
+export const decisionLabels = {
+  unreviewed: 'Unreviewed',
+  intentional: 'Intentional',
+  problematic: 'Problematic',
+} as const
+export type Decision = keyof typeof decisionLabels
+export type Decisions = Record<string, Decision>
+export type Filters = { type: FindingType | 'all'; status: Decision | 'all' }
+
+export function decisionOf(decisions: Decisions, id: string): Decision {
+  return decisions[id] ?? 'unreviewed'
+}
+
+export function matchesFilters(finding: Finding, decisions: Decisions, filters: Filters): boolean {
+  return (filters.type === 'all' || finding.type === filters.type)
+    && (filters.status === 'all' || decisionOf(decisions, finding.id) === filters.status)
+}
+
+export function reviewedCount(findings: Finding[], decisions: Decisions): number {
+  return findings.filter(finding => decisionOf(decisions, finding.id) !== 'unreviewed').length
+}
+
+export function nextUnreviewed(findings: Finding[], decisions: Decisions, filters: Filters, afterId: string | null): Finding | null {
+  const cursor = findings.findIndex(finding => finding.id === afterId)
+  for (let offset = 1; offset <= findings.length; offset++) {
+    const finding = findings[(cursor + offset) % findings.length]
+    if (decisionOf(decisions, finding.id) === 'unreviewed' && matchesFilters(finding, decisions, filters)) return finding
+  }
+  return null
+}

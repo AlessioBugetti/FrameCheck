@@ -2,8 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import FindingsPanel from './FindingsPanel'
 import Timeline from './Timeline'
 import VideoWorkspace from './VideoWorkspace'
-import { contextStart, findingLabels, formatTime } from './review'
-import type { Config, Finding, FindingType, Job, Playback } from './review'
+import { contextStart, findingLabels, formatTime, matchesFilters, nextUnreviewed, reviewedCount } from './review'
+import type { Config, Decision, Decisions, Filters, Finding, FindingType, Job, Playback } from './review'
 
 async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(path, options)
@@ -28,6 +28,9 @@ export default function App() {
   const [pollError, setPollError] = useState<string | null>(null)
   const [retry, setRetry] = useState(0)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [decisions, setDecisions] = useState<Decisions>({})
+  const [filters, setFilters] = useState<Filters>({ type: 'all', status: 'all' })
+  const [cursorId, setCursorId] = useState<string | null>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [route, setRoute] = useState<'original' | 'preview' | null>(null)
   const [playback, setPlayback] = useState<Playback>({ status: 'checking', source: null, error: null })
@@ -122,6 +125,9 @@ export default function App() {
     requestedPreview.current = false
     setRoute(null)
     setSelectedId(null)
+    setDecisions({})
+    setFilters({ type: 'all', status: 'all' })
+    setCursorId(null)
     setCurrentTime(0)
     setPlayback({ status: 'checking', source: null, error: null })
     try {
@@ -138,6 +144,7 @@ export default function App() {
   }
 
   async function reset(id: string) {
+    if (job && reviewedCount(job.findings, decisions) > 0 && !window.confirm('Start a new review? Current decisions will be discarded. Export a report first if you want to keep them.')) return
     setBusy(true)
     setError(null)
     try {
@@ -157,11 +164,35 @@ export default function App() {
 
   function selectFinding(finding: Finding) {
     setSelectedId(finding.id)
+    setCursorId(finding.id)
     if (playback.status === 'ready' && videoRef.current) {
       videoRef.current.pause()
       const position = contextStart(finding)
       videoRef.current.currentTime = position
       setCurrentTime(position)
+    }
+  }
+
+  const visibleFindings = job?.findings.filter(finding => matchesFilters(finding, decisions, filters)) ?? []
+  const nextFinding = nextUnreviewed(job?.findings ?? [], decisions, filters, cursorId)
+
+  function changeFilters(next: Filters) {
+    setFilters(next)
+    const selected = job?.findings.find(finding => finding.id === selectedId)
+    if (selected && !matchesFilters(selected, decisions, next)) {
+      setSelectedId(null)
+      videoRef.current?.pause()
+    }
+  }
+
+  function classify(decision: Decision) {
+    const selected = job?.findings.find(finding => finding.id === selectedId)
+    if (!selected) return
+    const next = { ...decisions, [selected.id]: decision }
+    setDecisions(next)
+    if (!matchesFilters(selected, next, filters)) {
+      setSelectedId(null)
+      videoRef.current?.pause()
     }
   }
 
@@ -199,7 +230,7 @@ export default function App() {
       </section>}
       {busy && !job && <section className="processing panel" role="status"><div className="eyebrow">Video intake</div><h1>{waitingJob ? 'Resetting current job' : 'Loading your video'}</h1><p className="filename">{uploadName || waitingJob?.filename}</p><div className="indeterminate-line" /><p>The file is being prepared on this computer.</p></section>}
       {job && <>
-        <div className="review-header"><div className="file-heading"><div className="eyebrow">{complete ? 'Review workspace' : 'Video analysis'}</div><h1 title={job.filename}>{job.filename}</h1></div><div className="review-header-actions">{complete && <span className="review-progress"><strong>0</strong> of {job.findings.length} reviewed</span>}<button type="button" disabled={busy} onClick={() => void reset(job.job_id)}>{complete || job.analysis.status === 'failed' ? 'New video' : 'Cancel analysis'}</button></div></div>
+        <div className="review-header"><div className="file-heading"><div className="eyebrow">{complete ? 'Review workspace' : 'Video analysis'}</div><h1 title={job.filename}>{job.filename}</h1></div><div className="review-header-actions">{complete && <span className="review-progress"><strong>{reviewedCount(job.findings, decisions)}</strong> of {job.findings.length} reviewed</span>}<button type="button" disabled={busy} onClick={() => void reset(job.job_id)}>{complete || job.analysis.status === 'failed' ? 'New video' : 'Cancel analysis'}</button></div></div>
         {!complete && <section className="processing panel" role={job.analysis.status === 'failed' ? 'alert' : 'status'}>
           <div className="eyebrow">Original video</div><h2>{job.analysis.status === 'failed' ? 'Analysis could not finish' : job.analysis.status === 'validating' ? 'Checking video compatibility' : 'Analyzing suspicious intervals'}</h2>
           <p>{job.analysis.status === 'failed' ? job.analysis.error?.message || 'The video could not be analyzed.' : job.analysis.status === 'validating' ? 'Checking the format, tracks, and duration before analysis.' : 'Checking black frames, frozen frames, and silence.'}</p>
@@ -209,7 +240,7 @@ export default function App() {
         {complete && job.media && <>
           <div className="review-meta"><span>{job.media.width} × {job.media.height}</span><span>{formatTime(job.media.duration)}</span><span>{job.media.container.toUpperCase()} · {job.media.video_codec.toUpperCase()}</span>{!job.media.has_audio && <span className="audio-note">No audio track</span>}<span className="finding-summary">{(Object.keys(findingLabels) as FindingType[]).map((type) => <span key={type}>{findingLabels[type]} <strong>{job.findings.filter((finding) => finding.type === type).length}</strong></span>)}</span></div>
           {job.preview.status === 'running' && <div className="preview-progress" role="status"><span>Preparing compatible preview</span>{job.preview.progress !== null && <><progress value={job.preview.progress} max={1} aria-label="Preview preparation progress" /><span className="tabular">{Math.floor(job.preview.progress * 100)}%</span></>}</div>}
-          <div className="workspace-grid"><div className="player-column"><VideoWorkspace videoRef={videoRef} sourceUrl={sourceUrl} source={route} playback={playback} duration={job.media.duration} currentTime={currentTime} onTimeChange={setCurrentTime} onReady={onReady} onFailure={onFailure} /><Timeline findings={job.findings} duration={job.media.duration} currentTime={currentTime} selectedId={selectedId} playable={playback.status === 'ready'} onSelect={selectFinding} /><p className="review-guidance">Findings are candidates, not confirmed defects. Select a finding to pause and seek one second before it starts.</p>{job.media.ignored_streams.length > 0 && <p className="review-guidance">Not analyzed: {job.media.ignored_streams.join(', ')}.</p>}</div><FindingsPanel findings={job.findings} selectedId={selectedId} onSelect={selectFinding} /></div>
+          <div className="workspace-grid"><div className="player-column"><VideoWorkspace videoRef={videoRef} sourceUrl={sourceUrl} source={route} playback={playback} duration={job.media.duration} currentTime={currentTime} onTimeChange={setCurrentTime} onReady={onReady} onFailure={onFailure} /><Timeline findings={visibleFindings} decisions={decisions} duration={job.media.duration} currentTime={currentTime} selectedId={selectedId} playable={playback.status === 'ready'} onSelect={selectFinding} /><p className="review-guidance">Findings are candidates, not confirmed defects. Select a finding to pause and seek one second before it starts.</p>{job.media.ignored_streams.length > 0 && <p className="review-guidance">Not analyzed: {job.media.ignored_streams.join(', ')}.</p>}</div><FindingsPanel findings={visibleFindings} total={job.findings.length} decisions={decisions} filters={filters} onFilters={changeFilters} selectedId={selectedId} onSelect={selectFinding} onDecision={classify} nextEnabled={playback.status === 'ready' && nextFinding !== null} onNext={() => { if (nextFinding) selectFinding(nextFinding) }} /></div>
         </>}
       </>}
     </main>

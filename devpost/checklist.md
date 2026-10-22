@@ -13,7 +13,7 @@ We will build small, usable increments. Each step crosses the necessary layers, 
 
 ## Slices
 
-- [ ] **1. Load a video and inspect real findings in a playable workspace**
+- [x] **1. Load a video and inspect real findings in a playable workspace**
   Becomes usable: The local app accepts an upload or the synthetic demo, analyzes the original, prepares a preview when necessary, and presents chronological findings beside a player and three-track timeline. Selecting a finding pauses and seeks to its context. Normal/no-audio outcomes, unsupported input, processing feedback, and separate analysis/playback errors are visible.
   Why now: Proves the distinctive detection-to-review path immediately and resolves codec/timestamp risks before extending review behavior. Dependency setup and scaffolding belong to this working path.
   PRD ref: `prd.md > The Core Journey`, `Video Intake and Limits`, `Analysis and Compatible Preview`, `Timeline and Playback`, `Screens and Layout`, `Look and Feel`
@@ -57,7 +57,7 @@ We will build small, usable increments. Each step crosses the necessary layers, 
 
 Slice 1 is implemented and mechanically verified: 26 backend tests, two frontend unit tests, the production build, and 16 distinct Chrome integration cases passed. See [the evidence](validation/slice-1/README.md). The app is available at http://127.0.0.1:8765 for the early hands-on check. The learner explicitly requested continuation on 22 October without supplying hands-on observations. The early feedback pause is deferred to final exploration; no learner testing is claimed. Review decisions, filters, and HTML export remain in slices 2–3.
 
-- [ ] Early usable behavior explored — after slice 1, learner feedback on actual playback, finding selection and workspace layout is recorded and resolved before continuing.
+- [ ] Early usable behavior explored — deferred to final exploration at the learner’s explicit continuation request; no hands-on feedback has been supplied.
 - [ ] Final kick-the-tires exploration and feedback completed — after slice 4, learner tries the full workflow and any agreed corrections.
 
 ## Final Review
@@ -84,3 +84,9 @@ Activity mode: Planned focused investigation suited to the learner's engineering
 - Located browser tests and their configuration inside `frontend/` so they resolve the existing npm dependencies without a second package or root dependency tree.
 
 - The learner authorized continuation after the early workspace checkpoint; defer unperformed hands-on feedback to final exploration rather than inventing feedback or repeating the permission gate.
+
+## Session Checkpoint — 22 October 2026
+
+The learner requested continuation after the usage window renewed (1% used at resume). The stop rule remains 99% used. No reset credit was spent by the agent.
+
+Slice 1 is committed as `64c3e45`. Slice 2 now passes its six unit tests, production build and three focused Chrome cases, including playback-unavailable classification. Desktop and narrow screenshots are inspected; evidence is in `validation/slice-2/README.md`. The early hands-on check remains deferred by the learner; final exploration is still required.

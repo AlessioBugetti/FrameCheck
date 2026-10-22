@@ -138,6 +138,13 @@ test('playback fallback failure retains findings and disables timeline', async (
   await page.locator('.finding').first().click()
   await expect(page.getByText('Selected interval', { exact: true })).toBeVisible()
   await expect(page.locator('.selection-details .status-tag')).toHaveText('Unreviewed')
+  await expect(page.getByRole('button', { name: 'Next unreviewed' })).toBeDisabled()
+  await page.getByRole('button', { name: 'Mark as problematic' }).click()
+  await expect(page.locator('.selection-details .status-tag')).toHaveText('Problematic')
+  await expect(page.locator('.review-progress')).toHaveText('1 of 4 reviewed')
+  await expect(page.locator('video')).not.toHaveAttribute('controls')
+  await page.getByRole('button', { name: 'Restore to unreviewed' }).click()
+  await expect(page.locator('.review-progress')).toHaveText('0 of 4 reviewed')
 })
 
 test('playback seeks beyond the initial buffer using real byte ranges', async ({ page }) => {

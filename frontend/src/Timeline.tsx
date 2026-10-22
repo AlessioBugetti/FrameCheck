@@ -1,8 +1,9 @@
-import { findingLabels, formatTime } from './review'
-import type { Finding, FindingType } from './review'
+import { decisionLabels, decisionOf, findingLabels, formatTime } from './review'
+import type { Decisions, Finding, FindingType } from './review'
 
 type Props = {
   findings: Finding[]
+  decisions: Decisions
   duration: number
   currentTime: number
   selectedId: string | null
@@ -10,7 +11,7 @@ type Props = {
   onSelect: (finding: Finding) => void
 }
 
-export default function Timeline({ findings, duration, currentTime, selectedId, playable, onSelect }: Props) {
+export default function Timeline({ findings, decisions, duration, currentTime, selectedId, playable, onSelect }: Props) {
   const position = Math.min(100, Math.max(0, (currentTime / duration) * 100))
   return <section className="timeline panel" aria-label="Findings timeline">
     <div className="section-heading"><h2>Timeline</h2><span className="small-text">Select an interval to inspect it</span></div>
@@ -24,9 +25,9 @@ export default function Timeline({ findings, duration, currentTime, selectedId, 
           {findings.filter((finding) => finding.type === type).map((finding) => <button
             key={finding.id}
             type="button"
-            className={`interval${selectedId === finding.id ? ' selected' : ''}`}
+            className={`interval ${decisionOf(decisions, finding.id)}${selectedId === finding.id ? ' selected' : ''}`}
             style={{ left: `${(finding.start / duration) * 100}%`, width: `${(finding.duration / duration) * 100}%` }}
-            aria-label={`${findingLabels[type]}, ${formatTime(finding.start)} to ${formatTime(finding.end)}, Unreviewed`}
+            aria-label={`${findingLabels[type]}, ${formatTime(finding.start)} to ${formatTime(finding.end)}, ${decisionLabels[decisionOf(decisions, finding.id)]}`}
             aria-pressed={selectedId === finding.id}
             disabled={!playable}
             title={`${findingLabels[type]} · ${formatTime(finding.start)}–${formatTime(finding.end)}`}
@@ -36,6 +37,6 @@ export default function Timeline({ findings, duration, currentTime, selectedId, 
         </div>
       </div>)}
     </div>
-    <div className="timeline-footer"><span><i className="legend-square" />Unreviewed</span><span><i className="legend-line" />Current position</span><span className="tabular">{formatTime(currentTime)}</span></div>
+    <div className="timeline-footer"><span><i className="legend-square" />Unreviewed</span><span><i className="legend-square intentional" />Intentional</span><span><i className="legend-square problematic" />Problematic</span><span className="tabular">{formatTime(currentTime)}</span></div>
   </section>
 }

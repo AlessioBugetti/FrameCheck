@@ -4,7 +4,7 @@ Check a processed video before delivering it. FrameCheck analyzes the original l
 
 ## Current build
 
-The first increment supports upload, the synthetic demo, real FFmpeg analysis, compatible previews, paused finding selection, no-audio/no-findings states, and explicit reset. Review decisions, filters and HTML report export are the next approved increments and are not implemented yet. See [the build checklist](devpost/checklist.md).
+Upload, the synthetic demo, real FFmpeg analysis, compatible previews, paused finding selection, type/status filters, explicit review decisions and Next unreviewed are implemented. HTML report export is the next approved increment. See [the build checklist](devpost/checklist.md).
 
 ## Run locally
 
