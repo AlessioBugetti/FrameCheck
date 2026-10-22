@@ -2,6 +2,19 @@
 
 Check a processed video before delivering it. FrameCheck analyzes the original locally and presents candidate black frames, frozen frames and silence beside a synchronized player and timeline. Findings require human judgment; they are not confirmed defects.
 
+Built for the [Build With AI: Basics hackathon](https://learn-ai-basics.devpost.com/) on Devpost, using the Devpost Learn Skill Pack. Planning documents are available in [devpost/](devpost/).
+
+![FrameCheck review workspace with a synchronized video player, labeled timeline tracks, review decisions, and completed review progress](docs/images/review-workspace.png)
+
+**Locate suspicious intervals. Watch in context. Make the call. Export your review.**
+
+| Start a local review | Keep a readable report |
+| --- | --- |
+| [![FrameCheck welcome screen with Upload video and Try the demo actions, supported formats, and file limits](docs/images/upload-video.png)](docs/images/upload-video.png) | [![Exported HTML report showing the demo filename, review progress, interval timestamps, review decisions, and detection settings](docs/images/review-report.png)](docs/images/review-report.png) |
+| Upload MP4, MOV, MKV, or WebM, or explore the included demo. Your video stays on your computer. | Export every finding and decision to a standalone HTML file. Open it offline or print it from your browser. |
+
+*Screenshots show the included synthetic demo. Detections are candidates for human review.*
+
 ## Review workflow
 
 Upload, the synthetic demo, real FFmpeg analysis, compatible previews, paused finding selection, type/status filters, explicit review decisions and Next unreviewed are implemented. Export report downloads a standalone, offline, printable HTML review, including unreviewed findings and playback failures.
