@@ -23,7 +23,7 @@ We will build small, usable increments. Each step crosses the necessary layers, 
   Learner check: Start the documented local server, open `http://127.0.0.1:8765`, choose Try the demo, and select one finding of each type. Try a supported MOV or WebM if available. Check whether the layout, finding density, selected interval, and playback context are clear; report anything confusing before the review controls are completed.
   Commit: `feat: analyze videos in a review workspace`
 
-- [ ] **2. Classify findings and navigate remaining review work**
+- [x] **2. Classify findings and navigate remaining review work**
   Becomes usable: Mark findings Intentional or Problematic, restore Unreviewed, filter by type/status, and use Next unreviewed with forward search and wraparound. Overall review progress stays accurate and navigation remains deliberate.
   Why now: Adds human judgment to the validated media path and incorporates early workspace feedback before report generation depends on the decision state.
   PRD ref: `prd.md > Findings, Filters, and Review Decisions`, `Timeline and Playback`, `Language and Terminology`, `Accessibility and Responsive Review`
@@ -55,7 +55,7 @@ We will build small, usable increments. Each step crosses the necessary layers, 
 
 ## Hands-on Checkpoints
 
-Slice 1 is implemented and mechanically verified: 26 backend tests, two frontend unit tests, the production build, and 16 distinct Chrome integration cases passed. See [the evidence](validation/slice-1/README.md). The app is available at http://127.0.0.1:8765 for the early hands-on check. The learner explicitly requested continuation on 22 October without supplying hands-on observations. The early feedback pause is deferred to final exploration; no learner testing is claimed. Review decisions, filters, and HTML export remain in slices 2–3.
+Slice 1 is implemented and mechanically verified: 26 backend tests, two frontend unit tests, the production build, and 16 distinct Chrome integration cases passed. See [the evidence](validation/slice-1/README.md). The app is available at http://127.0.0.1:8765 for the early hands-on check. The learner explicitly requested continuation on 22 October without supplying hands-on observations. The early feedback pause is deferred to final exploration; no learner testing is claimed. Review decisions and filters are verified in slice 2; offline HTML export is verified in slice 3.
 
 - [ ] Early usable behavior explored — deferred to final exploration at the learner’s explicit continuation request; no hands-on feedback has been supplied.
 - [ ] Final kick-the-tires exploration and feedback completed — after slice 4, learner tries the full workflow and any agreed corrections.
@@ -90,3 +90,5 @@ Activity mode: Planned focused investigation suited to the learner's engineering
 The learner requested continuation after the usage window renewed (1% used at resume). The stop rule remains 99% used. No reset credit was spent by the agent.
 
 Slice 1 is committed as `64c3e45`. Slice 2 now passes its six unit tests, production build and three focused Chrome cases, including playback-unavailable classification. Desktop and narrow screenshots are inspected; evidence is in `validation/slice-2/README.md`. The early hands-on check remains deferred by the learner; final exploration is still required.
+
+- Slice 3 validates printing through Chrome’s print engine and inspection of every rendered PDF page. Native print-dialog UI inspection remains part of final learner exploration; no such inspection is claimed.

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { downloadReport } from './report'
 import FindingsPanel from './FindingsPanel'
 import Timeline from './Timeline'
 import VideoWorkspace from './VideoWorkspace'
@@ -230,7 +231,7 @@ export default function App() {
       </section>}
       {busy && !job && <section className="processing panel" role="status"><div className="eyebrow">Video intake</div><h1>{waitingJob ? 'Resetting current job' : 'Loading your video'}</h1><p className="filename">{uploadName || waitingJob?.filename}</p><div className="indeterminate-line" /><p>The file is being prepared on this computer.</p></section>}
       {job && <>
-        <div className="review-header"><div className="file-heading"><div className="eyebrow">{complete ? 'Review workspace' : 'Video analysis'}</div><h1 title={job.filename}>{job.filename}</h1></div><div className="review-header-actions">{complete && <span className="review-progress"><strong>{reviewedCount(job.findings, decisions)}</strong> of {job.findings.length} reviewed</span>}<button type="button" disabled={busy} onClick={() => void reset(job.job_id)}>{complete || job.analysis.status === 'failed' ? 'New video' : 'Cancel analysis'}</button></div></div>
+        <div className="review-header"><div className="file-heading"><div className="eyebrow">{complete ? 'Review workspace' : 'Video analysis'}</div><h1 title={job.filename}>{job.filename}</h1></div><div className="review-header-actions">{complete && <span className="review-progress"><strong>{reviewedCount(job.findings, decisions)}</strong> of {job.findings.length} reviewed</span>}{complete && <button type="button" className="primary" onClick={() => { try { downloadReport(job, decisions, playback) } catch { setError('Could not create the report. Your review decisions are preserved; try exporting again.') } }}>Export report</button>}<button type="button" disabled={busy} onClick={() => void reset(job.job_id)}>{complete || job.analysis.status === 'failed' ? 'New video' : 'Cancel analysis'}</button></div></div>
         {!complete && <section className="processing panel" role={job.analysis.status === 'failed' ? 'alert' : 'status'}>
           <div className="eyebrow">Original video</div><h2>{job.analysis.status === 'failed' ? 'Analysis could not finish' : job.analysis.status === 'validating' ? 'Checking video compatibility' : 'Analyzing suspicious intervals'}</h2>
           <p>{job.analysis.status === 'failed' ? job.analysis.error?.message || 'The video could not be analyzed.' : job.analysis.status === 'validating' ? 'Checking the format, tracks, and duration before analysis.' : 'Checking black frames, frozen frames, and silence.'}</p>

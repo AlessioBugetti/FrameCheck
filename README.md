@@ -4,7 +4,7 @@ Check a processed video before delivering it. FrameCheck analyzes the original l
 
 ## Current build
 
-Upload, the synthetic demo, real FFmpeg analysis, compatible previews, paused finding selection, type/status filters, explicit review decisions and Next unreviewed are implemented. HTML report export is the next approved increment. See [the build checklist](devpost/checklist.md).
+Upload, the synthetic demo, real FFmpeg analysis, compatible previews, paused finding selection, type/status filters, explicit review decisions and Next unreviewed are implemented. Export report downloads a standalone, offline, printable HTML review, including unreviewed findings and playback failures. See [the build checklist](devpost/checklist.md).
 
 ## Run locally
 
