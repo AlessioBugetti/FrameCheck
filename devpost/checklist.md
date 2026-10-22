@@ -43,7 +43,7 @@ We will build small, usable increments. Each step crosses the necessary layers, 
   Learner check: Review two demo findings differently, leave another Unreviewed, apply a filter, and export. Open the downloaded HTML offline and its print preview; check that it includes the full analysis and exactly the decisions you made.
   Commit: `feat: export offline HTML review reports`
 
-- [ ] **4. Validate demanding cases and polish the complete demo**
+- [x] **4. Validate demanding cases and polish the complete demo**
   Becomes usable: A coherent, documented proof of concept with verified limits/errors, readable dense findings, responsive keyboard-accessible review, and a reproducible 1–3 minute demonstration journey.
   Why now: The whole workflow exists, so final measurements and presentation checks exercise the actual product rather than disconnected components. This step closes required validation gaps without adding features.
   PRD ref: `prd.md > Accessibility and Responsive Review`, `States and Boundaries`, `Look and Feel`, `What We're Building`, `Decisions and Validation for the Technical Specification`
@@ -99,6 +99,6 @@ Slice 1 is committed as `64c3e45`. Slice 2 now passes its six unit tests, produc
 
 ## Current Build Handoff
 
-All four implementation slices are mechanically verified. Slice 1 is `64c3e45`, slice 2 is `2770c04`, and slice 3 is `84382da`; slice 4 is the final validation/polish checkpoint. The complete backend suite passes 30 tests, frontend unit tests pass nine tests, and the ordinary Chrome suite passes 26 cases with the optional near-limit case skipped when no large fixture is supplied. That optional case passed separately with the 482.8 MB fixture. Production build passes. Evidence and commands: `validation/slice-4/README.md`.
+All four implementation slices are mechanically verified. Slice 1 is `64c3e45`, slice 2 is `2770c04`, and slice 3 is `84382da`; slice 4 is `eb61bd7`. The complete backend suite passes 30 tests, frontend unit tests pass nine tests, and the ordinary Chrome suite passes 26 cases with the optional near-limit case skipped when no large fixture is supplied. That optional case passed separately with the 482.8 MB fixture. Production build passes. Evidence and commands: `validation/slice-4/README.md`.
 
 The app is available on port 8765 with no current job at the handoff check. Browser tests used isolated port 8766. The next required workflow step is final hands-on learner exploration: try the complete demo and a representative personal video, inspect the downloaded HTML and native print preview, and report actual observations. Do not mark final review or learning wrap-up complete without that interaction. After any agreed fixes and explicit readiness confirmation, complete the focused code investigation and app map from the 5-build skill.
