@@ -89,7 +89,7 @@ This is the approved minimum support contract. A container extension alone is no
 
 Do not claim HEVC, AV1, VP8, other audio codecs, HDR color fidelity, or every ProRes variant in the initial release. Unsupported combinations receive an English message naming the unsupported feature and supported alternatives. The learner accepted these bounded matrix choices when approving this specification.
 
-All five audio-bearing combinations above passed the planning FFmpeg checks. The H.264 combinations, WebM, and generated preview passed playback/frame/seek smoke checks in the available in-app Chromium 155 browser; the ProRes original did not present a frame after seeking. Standalone Chrome, no-audio variants, and application-server media routes remain build acceptance gates. Details: [Media preflight](validation/README.md).
+All five audio-bearing combinations above passed the planning FFmpeg checks. The H.264 combinations, WebM, and generated preview passed playback/frame/seek smoke checks in the available in-app Chromium 155 browser; the ProRes original did not present a frame after seeking. Those build acceptance gates are now covered by the slice-1 application tests: standalone Chrome, no-audio variants and actual media routes. Details: [Media preflight](validation/README.md).
 
 ## Timestamp and Duration Contract
 
@@ -104,7 +104,7 @@ Implements `prd.md > Analysis and Compatible Preview`, `Timeline and Playback`, 
 - Preserve variable frame timing using `-fps_mode vfr`. Do not apply fixed-rate conversion, `-shortest`, independent `setpts` resets, or trimming to the preview.
 - Acceptance tolerance: known synthetic detection boundaries within **0.25 seconds**; original-to-preview black/audio landmarks within **0.10 seconds** on the test fixtures, with no accumulating drift. Test the start, middle, and end of longer media. Do not use repeat freeze detection alone to prove alignment, because compression can change its detection boundary.
 
-The preflight observed at most 0.01201 seconds of original/preview difference on the checked offset, variable-rate, and delayed-audio cases. Browser-level landmark checks are still required. Preview output duration must be checked against the expected selected-stream extent; a mismatch beyond the alignment tolerance prevents marking the preview ready.
+The preflight observed at most 0.01201 seconds of original/preview difference on the checked offset, variable-rate, and delayed-audio cases. Browser-level landmark checks now pass for offset/VFR fixtures and the start/middle/end of the near-limit workload; see `validation/slice-4/README.md`. Preview output duration must be checked against the expected selected-stream extent; a mismatch beyond the alignment tolerance prevents marking the preview ready.
 
 ## Components
 
@@ -271,10 +271,12 @@ Run focused tests for changed behavior; do not substitute screenshot-only checks
 ## Evidence, Simplifications, and Open Issues
 
 - **Measured preflight:** a 482.28 MB, 299.89-second 1080p/30 synthetic H.264/AAC source analyzed in 12.257 seconds and previewed at full resolution in 39.710 seconds on this machine. Peak FFmpeg RSS was approximately 105 MiB for analysis and 350 MiB for preview. This is evidence for keeping the initial limits, not a promise for every resolution, codec, machine, or real-world recording. [Detailed measurements](validation/README.md).
-- **Timestamp uncertainty identified by the learner:** preview correspondence and codec behavior were explicit priorities. The investigation tested shared offsets, variable frame rate, and delayed audio, and found the nonzero-start duration pitfall. Packet-derived extents and shared normalization address that observed issue; browser-level and real-footage coverage remain build gates.
+- **Timestamp uncertainty identified by the learner:** preview correspondence and codec behavior were explicit priorities. The investigation tested shared offsets, variable frame rate, and delayed audio, and found the nonzero-start duration pitfall. Packet-derived extents and shared normalization address that observed issue; browser-level coverage is recorded in slices 1 and 4; representative real-footage exploration remains a final learner check.
 - **Accepted architecture:** React/TypeScript/Vite, FastAPI/native FFmpeg, Chrome first. One process, one job, polling, memory-only review decisions, browser-generated HTML, and fixed thresholds keep the proof of concept small.
 - **Decisions accepted with this specification:** the exact five-row codec matrix, one-video/at-most-one-audio-track policy, fixed thresholds, timing tolerances, and operational time/output limits. No universal codec or performance claim is made.
-- **Build verification:** slice 1 now has pinned dependencies, real original analysis and preview handling, backend tests for the audio/no-audio matrix, and standalone Chrome integration checks. See `validation/slice-1/README.md` for exact evidence. Real-footage/HDR behavior, dense rendered review UI, and full five-minute cases for every codec/resolution remain unverified.
+- **Build verification:** slice 1 now has pinned dependencies, real original analysis and preview handling, backend tests for the audio/no-audio matrix, and standalone Chrome integration checks. See `validation/slice-1/README.md` for exact evidence. Slices 2–4 add deliberate review, offline reports, dense rendered layouts and a near-five-minute/500 MB real-HTTP workload. See `validation/slice-4/README.md`. Real-footage/HDR behavior and full five-minute cases for every codec/resolution remain unverified.
 - **Schedule:** the learner later said they are not in a rush and explicitly chose fast mode. Preserve verification and hands-on checkpoints before the 24 October deadline. Preview generation, its failure path, and timestamp validation are required work. If measurements invalidate a limit or a claimed supported combination, report it and agree a correction rather than silently dropping it.
 
 This technical specification is approved. Continue with the working checklist and implementation in `5-build`.
+
+- **Final application measurement:** 482,835,070-byte, 299.955273-second synthetic 1080p30 H.264/AAC video: upload 0.636 s; inspection about 0.205 s; analysis about 11.938 s; upload to successful analysis 12.778 s; compatible preview including output inspection 38.492 s. Chrome original/preview frame landmarks at 1, 149.8 and 298.8 seconds differ by at most 0.025065 s. Limits remain five minutes/500 MB, with no universal performance claim.

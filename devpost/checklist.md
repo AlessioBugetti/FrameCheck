@@ -33,7 +33,7 @@ We will build small, usable increments. Each step crosses the necessary layers, 
   Learner check: Filter to Unreviewed, classify a selected finding, and confirm that it disappears without seeking elsewhere. Use Next unreviewed, try a type filter, and restore a reviewed finding to Unreviewed. Check that the selected interval, current decision, and remaining work are always apparent.
   Commit: `feat: add deliberate finding review`
 
-- [ ] **3. Export an accurate offline review report**
+- [x] **3. Export an accurate offline review report**
   Becomes usable: Export report downloads a readable, printable HTML file with the original filename, exact settings, all findings and current decisions, including incomplete reviews and playback failures.
   Why now: Completes the core journey using the established analysis and decision models; the report must faithfully preserve the review rather than reconstruct it from filtered UI entries.
   PRD ref: `prd.md > Standalone HTML Report`, `Language and Terminology`, `Analysis and Compatible Preview`, `States and Boundaries`
@@ -92,3 +92,13 @@ The learner requested continuation after the usage window renewed (1% used at re
 Slice 1 is committed as `64c3e45`. Slice 2 now passes its six unit tests, production build and three focused Chrome cases, including playback-unavailable classification. Desktop and narrow screenshots are inspected; evidence is in `validation/slice-2/README.md`. The early hands-on check remains deferred by the learner; final exploration is still required.
 
 - Slice 3 validates printing through Chrome’s print engine and inspection of every rendered PDF page. Native print-dialog UI inspection remains part of final learner exploration; no such inspection is claimed.
+
+- Dense-fixture verification showed freeze generation erasing some intended black intervals. Applying black intervals after the freeze filter preserves the independent fixture expectations: 30 Black frames, 15 Frozen frames and 12 Silence candidates. Production thresholds were unchanged.
+- Dense review selection now scrolls only the findings list so the chosen entry remains visible while the page/player keep their position. No zoom, virtualization or editing was added.
+- The near-limit Chrome test initially stalled with large-upload interception. It now leaves the native upload untouched and intercepts only the original media request after upload acceptance to exercise fallback. The corrected 482.8 MB browser run passed; no app limit was reduced.
+
+## Current Build Handoff
+
+All four implementation slices are mechanically verified. Slice 1 is `64c3e45`, slice 2 is `2770c04`, and slice 3 is `84382da`; slice 4 is the final validation/polish checkpoint. The complete backend suite passes 30 tests, frontend unit tests pass nine tests, and the ordinary Chrome suite passes 26 cases with the optional near-limit case skipped when no large fixture is supplied. That optional case passed separately with the 482.8 MB fixture. Production build passes. Evidence and commands: `validation/slice-4/README.md`.
+
+The app is available on port 8765 with no current job at the handoff check. Browser tests used isolated port 8766. The next required workflow step is final hands-on learner exploration: try the complete demo and a representative personal video, inspect the downloaded HTML and native print preview, and report actual observations. Do not mark final review or learning wrap-up complete without that interaction. After any agreed fixes and explicit readiness confirmation, complete the focused code investigation and app map from the 5-build skill.

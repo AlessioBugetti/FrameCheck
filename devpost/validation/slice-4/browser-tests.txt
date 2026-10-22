@@ -1,0 +1,45 @@
+npm notice run framecheck-workspace@0.1.0 test:e2e
+npm notice run playwright test
+[WebServer] INFO:     Started server process [4138165]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8766 (Press CTRL+C to quit)
+
+Running 27 tests using 1 worker
+
+(node:4138173) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 e2e/demo.spec.ts:18:1 › the full demo can be completed using Tab and Enter (2.7s)
+
+  ✓   2 e2e/dense.spec.ts:16:1 › dense findings retain real intervals, precise keyboard selection and readable layout (3.5s)
+
+  ✓   3 e2e/intake.spec.ts:54:1 › intake demo shows real findings and paused context selection (2.0s)
+  ✓   4 e2e/intake.spec.ts:88:5 › playback matrix: demo.mp4 (1.6s)
+  ✓   5 e2e/intake.spec.ts:88:5 › playback matrix: demo-no-audio.mp4 (1.2s)
+  ✓   6 e2e/intake.spec.ts:88:5 › playback matrix: h264-aac.mov (1.6s)
+  ✓   7 e2e/intake.spec.ts:88:5 › playback matrix: h264-aac-no-audio.mov (1.1s)
+  ✓   8 e2e/intake.spec.ts:88:5 › playback matrix: h264-aac.mkv (1.1s)
+  ✓   9 e2e/intake.spec.ts:88:5 › playback matrix: h264-aac-no-audio.mkv (1.7s)
+  ✓  10 e2e/intake.spec.ts:88:5 › playback matrix: prores-pcm.mov (2.3s)
+  ✓  11 e2e/intake.spec.ts:88:5 › playback matrix: prores-pcm-no-audio.mov (2.1s)
+  ✓  12 e2e/intake.spec.ts:88:5 › playback matrix: vp9-opus.webm (1.6s)
+  ✓  13 e2e/intake.spec.ts:88:5 › playback matrix: vp9-opus-no-audio.webm (1.1s)
+  ✓  14 e2e/intake.spec.ts:105:3 › playback timestamp landmarks: offset.mkv (2.2s)
+  ✓  15 e2e/intake.spec.ts:105:3 › playback timestamp landmarks: variable.mkv (1.8s)
+[WebServer] Media command failed (1): [error] /tmp/framecheck-2oo356iw/original: Invalid data found when processing input
+  ✓  16 e2e/intake.spec.ts:117:1 › intake normal file and reload reset preserve truthful states (1.9s)
+  ✓  17 e2e/intake.spec.ts:130:1 › playback fallback failure retains findings and disables timeline (2.2s)
+  ✓  18 e2e/intake.spec.ts:150:1 › playback seeks beyond the initial buffer using real byte ranges (1.7s)
+  ✓  19 e2e/lifecycle.spec.ts:3:1 › a delayed old poll cannot replace the next review after reset (1.6s)
+  -  20 e2e/performance.spec.ts:7:1 › near-limit original and generated preview align at start, middle and end
+
+  ✓  21 e2e/report.spec.ts:38:1 › report exports all decisions under a filter, hostile filename as text, offline and printable (1.6s)
+  ✓  22 e2e/report.spec.ts:74:1 › report can export while playback readiness is pending (1.1s)
+  ✓  23 e2e/report.spec.ts:88:1 › server preview failure keeps export, decisions and explicit disclosure (1.6s)
+  ✓  24 e2e/report.spec.ts:107:1 › browser failure after real preview encoding is disclosed without changing decisions (2.2s)
+  ✓  25 e2e/report.spec.ts:121:1 › normal no-audio report states the successful empty outcome (1.1s)
+  ✓  26 e2e/review.spec.ts:13:1 › review decisions preserve position, filters and explicit continuation (1.5s)
+  ✓  27 e2e/review.spec.ts:53:1 › keyboard review stays selected without filters and can restore all decisions (1.8s)
+
+  1 skipped
+  26 passed (52.2s)

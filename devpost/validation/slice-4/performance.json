@@ -1,0 +1,28 @@
+{
+  "fixture": "near-limit.mp4",
+  "bytes": 482835070,
+  "media": {
+    "container": "MP4",
+    "duration": 299.95527300000003,
+    "video_end": 299.95527300000003,
+    "audio_end": 299.81899899999996,
+    "source_origin": 0.0,
+    "has_audio": true,
+    "video_index": 0,
+    "audio_index": 1,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "width": 1920,
+    "height": 1080,
+    "ignored_streams": [],
+    "requires_preview": false
+  },
+  "upload_seconds": 0.636,
+  "inspection_seconds_approximate": 0.205,
+  "analysis_seconds_approximate": 11.938,
+  "upload_to_analysis_complete_seconds": 12.778,
+  "preview_seconds_including_output_inspection": 38.492,
+  "preview_bytes": 185836521,
+  "findings": [],
+  "note": "Real HTTP upload, production inspection/detection/preview, phases observed by 100 ms polling. Synthetic 1080p30 H.264/AAC; no universal timing guarantee."
+}

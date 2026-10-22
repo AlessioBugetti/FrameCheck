@@ -171,6 +171,17 @@ class ApiTests(unittest.IsolatedAsyncioTestCase):
             self.assertTrue(task.cancelled())
             self.assertFalse(job.directory.exists())
 
+    async def test_storage_failure_and_incomplete_upload_leave_no_job(self):
+        with patch("framecheck.server.shutil.copyfile", side_effect=OSError("Disk full")):
+            response = await self.client.post("/api/demo")
+        self.assertEqual(response.status_code, 507)
+        self.assertEqual(response.json()["error"]["code"], "storage_failed")
+        self.assertIsNone(self.app.state.jobs.current)
+        response = await self.client.post("/api/jobs?filename=video.mp4", content=b"short", headers={"Content-Length": "20"})
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["error"]["code"], "incomplete_upload")
+        self.assertIsNone(self.app.state.jobs.current)
+
     async def test_subprocess_timeout_terminates(self):
         with self.assertRaisesRegex(MediaError, "time limit"):
             await media.run_process([sys.executable, "-c", "import time; time.sleep(20)"], timeout=0.05)

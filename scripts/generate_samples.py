@@ -69,10 +69,27 @@ def generate_samples(output, *, matrix=False):
     return output
 
 
+def generate_dense(output):
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
+    ffmpeg([
+        "-f", "lavfi", "-i", "testsrc2=size=640x360:rate=30:duration=120",
+        "-f", "lavfi", "-i", "sine=frequency=523.25:sample_rate=48000:duration=120",
+        "-vf", "select='not(gte(mod(t,8),4)*lt(mod(t,8),5.2))',fps=30,drawbox=color=black:t=fill:enable='gte(mod(t,4),1)*lt(mod(t,4),1.6)'",
+        "-af", "volume=0:enable='gte(mod(t,10),3)*lt(mod(t,10),6)'",
+        "-c:v", "libx264", "-threads", "4", "-preset", "veryfast", "-crf", "23",
+        "-pix_fmt", "yuv420p", "-c:a", "aac", "-movflags", "+faststart", output / "dense.mp4",
+    ])
+    return output / "dense.mp4"
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=Path(__file__).resolve().parents[1] / "samples")
     parser.add_argument("--matrix", action="store_true", help="Also generate the ten supported audio/no-audio combinations.")
+    parser.add_argument("--dense", action="store_true", help="Also generate a two-minute video with 57 expected findings.")
     options = parser.parse_args()
     generate_samples(options.output, matrix=options.matrix)
+    if options.dense:
+        generate_dense(options.output)
     print(f"Generated synthetic samples in {options.output}")

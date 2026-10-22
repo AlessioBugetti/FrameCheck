@@ -2,9 +2,13 @@
 
 Check a processed video before delivering it. FrameCheck analyzes the original locally and presents candidate black frames, frozen frames and silence beside a synchronized player and timeline. Findings require human judgment; they are not confirmed defects.
 
-## Current build
+## Review workflow
 
-Upload, the synthetic demo, real FFmpeg analysis, compatible previews, paused finding selection, type/status filters, explicit review decisions and Next unreviewed are implemented. Export report downloads a standalone, offline, printable HTML review, including unreviewed findings and playback failures. See [the build checklist](devpost/checklist.md).
+Upload, the synthetic demo, real FFmpeg analysis, compatible previews, paused finding selection, type/status filters, explicit review decisions and Next unreviewed are implemented. Export report downloads a standalone, offline, printable HTML review, including unreviewed findings and playback failures.
+
+Select a finding to pause and seek one second before it starts. Watch it, choose **Mark as intentional** or **Mark as problematic**, then choose **Next unreviewed** when ready. Restore **Unreviewed** whenever needed. Decisions apply immediately without advancing playback. Filters affect the list, timeline and next destination; overall progress and reports always cover every finding. Next searches forward and wraps, retaining its position when classification removes the selected entry.
+
+Export is available as soon as analysis succeeds, including while playback is pending or unavailable. It preserves explicit decisions and identifies every remaining Unreviewed finding. Print the downloaded HTML using the browser’s Print command. [Build and review progress](devpost/checklist.md).
 
 ## Run locally
 
@@ -22,7 +26,7 @@ npm --prefix frontend run build
 
 Open **http://127.0.0.1:8765** in Chrome. Choose **Try the demo** or **Upload video**. Select a finding from the list or timeline: the player pauses and seeks one second before the interval. Use the player's controls to watch it. **New video** clears the current job.
 
-Use one Uvicorn worker: the current job lives in that process. The server binds only to loopback. Stop it with Ctrl+C. During interface development, run `npm --prefix frontend run dev` alongside the backend; Vite proxies `/api` to port 8765. Rebuild and restart the production server after changing the interface.
+Use one Uvicorn worker: the current job lives in that process. The server binds only to loopback. Stop it with Ctrl+C. During interface development, run `npm --prefix frontend run dev` alongside the backend; Vite proxies `/api` to port 8765. Rebuild the interface and reload to see interface changes. Reloading discards in-memory decisions; export first. If the server started before a build existed, restart it after the initial build.
 
 ## Supported media
 
@@ -66,7 +70,19 @@ npm --prefix frontend run build
 npm --prefix frontend run test:e2e
 ```
 
-Browser tests launch installed Chrome and their own server on **8766**, separate from your review on 8765. They generate temporary matrix fixtures and remove them afterward. Do not run a second server on that test port. The backend suite tests all five matrix combinations with and without audio, previews, EOF intervals, source offsets, variable frame rate, delayed audio, corruption, upload/cancellation cleanup, and size/duration boundaries. Browser checks verify actual frames, context seeking, fallback failure, keyboard selection, and the narrow layout. Test output and traces are ignored by Git.
+Browser tests launch installed Chrome and their own server on **8766**, separate from your review on 8765. They generate temporary matrix fixtures and remove them afterward. Do not run a second server on that test port. The backend suite tests all five matrix combinations with and without audio, previews, EOF intervals, source offsets, variable frame rate, delayed audio, corruption, upload/cancellation cleanup, and size/duration boundaries. Browser checks verify actual frames, context seeking, fallback failure, deliberate decisions/filters, offline reports, print output, keyboard-only demo navigation, stale responses, dense findings, contrast, and the narrow layout. Test output and traces are ignored by Git.
+
+Generate additional stress media outside the repository:
+
+```bash
+.venv/bin/python scripts/generate_samples.py --dense --output /tmp/framecheck-samples
+.venv/bin/python scripts/validate_performance.py --output /tmp/framecheck-performance
+FRAMECHECK_PERFORMANCE_FIXTURE=/tmp/framecheck-performance/near-limit.mp4 npm --prefix frontend run test:e2e -- performance.spec.ts --trace off
+```
+
+The performance script reserves port 8766 and refuses to use an existing server. It generates a roughly 483 MB, nearly five-minute 1080p30 file, sends it through the real HTTP pipeline, requests a preview, saves measurement JSON and the preview, and stops its server. Large test media remain in your chosen temporary directory for inspection; remove that directory when finished. The browser performance case is explicitly skipped by the ordinary suite when the environment variable is absent. Avoid tracing/intercepting the large upload itself: it adds test-harness buffering. Media interception in this test begins only after upload acceptance.
+
+The two-minute dense fixture contains 30 Black frames, 15 Frozen frames and 12 Silence candidates. Its small visual intervals keep their real duration; the findings panel provides precise access when timeline hit areas overlap. No timeline zoom or editing is included.
 
 Detailed measured results and limitations are recorded in [the validation notes](devpost/validation/README.md).
 
@@ -75,3 +91,18 @@ Detailed measured results and limitations are recorded in [the validation notes]
 No accounts, cloud services, external AI, database, or persistent review history are used. The backend stores an app-owned temporary copy and optional preview under the system temporary directory in a `framecheck-*` folder. Reset and normal server shutdown cancel active work and delete those files. Reloading the browser offers **Reset current job**; it does not restore review decisions. A process crash can leave temporary files: after stopping FrameCheck, remove only its identified temporary job folders if cleanup is needed.
 
 Inspection is bounded to 30 seconds; analysis and preview each to 10 minutes. Preview output is bounded to 1 GB, four codec threads are requested, and a new job requires 2 GB of free temporary space. These protect the local proof of concept and are not processing-time guarantees. Initial measurements used synthetic 1080p material; larger resolutions and real recordings still need representative performance testing.
+
+
+## Measured workload
+
+On this machine, a synthetic 482.8 MB, 299.955-second 1080p30 H.264/AAC video completed upload and original analysis in **12.8 seconds**, followed by a compatible preview in **38.5 seconds**. Chrome original/preview frame timestamps at the start, middle and end differed by at most **0.0251 seconds**. The dense review fixture produced 57 findings and passed desktop/narrow selection and focused contrast checks. These measurements support the initial limits for this workload; real recordings, other resolutions/codecs at maximum size, HDR, browsers and operating systems still need representative validation. [Complete evidence](devpost/validation/slice-4/README.md).
+
+## Suggested 1–3 minute demo
+
+1. **0:00–0:20 — Problem:** a successful processing job can still contain unwanted black, frozen or silent intervals. Open FrameCheck and choose **Try the demo**.
+2. **0:20–0:50 — Locate and watch:** select Black frames at 2–3 seconds. The player pauses at 1 second; play through it. Explain that detections require judgment. The overlapping Frozen frames candidate is expected for a black image that stays unchanged.
+3. **0:50–1:20 — Decide:** classify the black interval and its overlapping candidate as Intentional. Select Frozen frames near 6–8 seconds, watch the context, and mark it Problematic. Review Silence near 9–11.5 seconds and mark it Intentional.
+4. **1:20–1:45 — Continue deliberately:** show the compact progress and a type/status filter. Restore one finding to Unreviewed if useful, then use **Next unreviewed** to return to it. Decisions never advance automatically.
+5. **1:45–2:15 — Deliver the result:** choose **Export report**. Open the standalone HTML and show timestamps, settings, decisions and any remaining Unreviewed entries. Mention offline opening and browser printing.
+
+Use your own explanation and recording. The automated keyboard rehearsal verifies the interaction path; it is not a narrated submission video. A normal sample and your own representative processed recordings are useful final checks before presenting.

@@ -79,7 +79,7 @@ Open `http://127.0.0.1:8877/browser-check.html` in the browser being tested and 
 
 The harnesses use assertions and fail on missing expected intervals, unacceptable alignment, invalid benchmark size/duration, or findings in the normal benchmark. They are preflight evidence, not the final application's test suite.
 
-## Remaining Build Gates
+## Original Build Gates (Preflight Record)
 
 - Standalone Chrome, supported MIME types, and range requests through the actual application server.
 - Final detector settings across the whole supported matrix, no-audio input, terminal events, and malformed/unsupported files.
@@ -87,3 +87,15 @@ The harnesses use assertions and fail on missing expected intervals, unacceptabl
 - Exact upload-size and normalized-duration boundary enforcement, partial uploads, timeout behavior, disk cleanup, and larger-resolution workloads.
 - Preview failure after successful analysis, disabled playback-dependent controls, preserved explicit decisions, and truthful HTML export.
 - Keyboard access, responsive layout, dense findings, and offline/print report rendering.
+
+
+## Final Application Validation — 22 October 2026
+
+The original build gates above are retained as preflight history. Application evidence now lives in:
+
+- [Slice 1](slice-1/README.md): real detection, supported matrix with/without audio, EOF/corruption/timing, ranges and browser frames.
+- [Slice 2](slice-2/README.md): decisions, filters, deliberate navigation, focus and playback-unavailable review.
+- [Slice 3](slice-3/README.md): complete offline HTML exports, safe text, failed/pending playback disclosure and inspected Chrome print output.
+- [Slice 4](slice-4/README.md): complete regression results, 57-finding layouts, keyboard demo and measured near-limit application performance/alignment.
+
+Real customer footage, HDR fidelity, other browsers/operating systems and every codec/resolution at maximum duration remain outside the measured evidence. Final learner exploration and native print-dialog inspection are pending. Automated passing checks do not establish that every processed video is defect-free.

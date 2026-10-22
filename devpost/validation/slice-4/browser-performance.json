@@ -1,0 +1,39 @@
+{
+  "bytes": 482835070,
+  "media": {
+    "container": "MP4",
+    "duration": 299.95527300000003,
+    "video_end": 299.95527300000003,
+    "audio_end": 299.81899899999996,
+    "source_origin": 0,
+    "has_audio": true,
+    "video_index": 0,
+    "audio_index": 1,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "width": 1920,
+    "height": 1080,
+    "ignored_streams": [],
+    "requires_preview": false
+  },
+  "landmarks": [
+    {
+      "position": 1,
+      "originalTime": 1,
+      "previewTime": 1,
+      "meanPixelDifference": 0.07966820987654322
+    },
+    {
+      "position": 149.8,
+      "originalTime": 149.774935,
+      "previewTime": 149.8,
+      "meanPixelDifference": 1.4236593364197532
+    },
+    {
+      "position": 298.8,
+      "originalTime": 298.788607,
+      "previewTime": 298.8,
+      "meanPixelDifference": 0.0876736111111111
+    }
+  ]
+}
