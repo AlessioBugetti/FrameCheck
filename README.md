@@ -113,13 +113,3 @@ Inspection is bounded to 30 seconds; analysis and preview each to 10 minutes. Pr
 ## Measured workload
 
 On this machine, a synthetic 482.8 MB, 299.955-second 1080p30 H.264/AAC video completed upload and original analysis in **12.8 seconds**, followed by a compatible preview in **38.5 seconds**. Chrome original/preview frame timestamps at the start, middle and end differed by at most **0.0251 seconds**. The dense review fixture produced 57 findings and passed desktop/narrow selection and focused contrast checks. These measurements support the initial limits for this workload; real recordings, other resolutions/codecs at maximum size, HDR, browsers and operating systems still need representative validation. [Complete evidence](devpost/validation/slice-4/README.md).
-
-## Suggested 1–3 minute demo
-
-1. **0:00–0:20 — Problem:** a successful processing job can still contain unwanted black, frozen or silent intervals. Open FrameCheck and choose **Try the demo**.
-2. **0:20–0:50 — Locate and watch:** select Black frames at 2–3 seconds. The player pauses at 1 second; play through it. Explain that detections require judgment. The overlapping Frozen frames candidate is expected for a black image that stays unchanged.
-3. **0:50–1:20 — Decide:** classify the black interval and its overlapping candidate as Intentional. Select Frozen frames near 6–8 seconds, watch the context, and mark it Problematic. Review Silence near 9–11.5 seconds and mark it Intentional.
-4. **1:20–1:45 — Continue deliberately:** show the compact progress and a type/status filter. Restore one finding to Unreviewed if useful, then use **Next unreviewed** to return to it. Decisions never advance automatically.
-5. **1:45–2:15 — Deliver the result:** choose **Export report**. Open the standalone HTML and show timestamps, settings, decisions and any remaining Unreviewed entries. Mention offline opening and browser printing.
-
-Use your own explanation and recording. The automated keyboard rehearsal verifies the interaction path; it is not a narrated submission video. A normal sample and your own representative processed recordings are useful final checks before presenting.
