@@ -1,0 +1,28 @@
+{
+  "filename": "demo.mp4",
+  "duration": 12.0,
+  "tolerance": 0.25,
+  "findings": [
+    {
+      "type": "black_frames",
+      "start": 2.0,
+      "end": 3.0
+    },
+    {
+      "type": "frozen_frames",
+      "start": 2.0,
+      "end": 3.0
+    },
+    {
+      "type": "frozen_frames",
+      "start": 6.0,
+      "end": 8.0
+    },
+    {
+      "type": "silence",
+      "start": 9.0,
+      "end": 11.5
+    }
+  ],
+  "note": "The black interval is also a frozen-frame candidate. All findings require human review."
+}

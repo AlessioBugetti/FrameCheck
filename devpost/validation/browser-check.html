@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>FrameCheck media validation</title>
+<style>body{font:16px system-ui;background:#16191f;color:#eee;margin:24px}video{width:480px}pre{white-space:pre-wrap}button{padding:8px}</style>
+<h1>FrameCheck media validation</h1>
+<p>This disposable page checks generated synthetic files in the actual browser.</p>
+<button id="run">Run media checks</button>
+<video id="video" controls muted playsinline preload="auto"></video>
+<pre id="results">Ready.</pre>
+<script>
+const video = document.getElementById('video');
+const output = document.getElementById('results');
+const files = ['h264-aac.mp4', 'h264-aac.mov', 'h264-aac.mkv', 'prores-pcm.mov', 'vp9-opus.webm', 'preview.mp4'];
+const results = [];
+function event(name) {
+  return new Promise((resolve, reject) => {
+    const cleanup = () => { clearTimeout(timer); video.removeEventListener(name, done); video.removeEventListener('error', failed); };
+    const done = () => { cleanup(); resolve(); };
+    const failed = () => { cleanup(); reject(new Error(video.error?.message || 'Media error')); };
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timed out waiting for ' + name)); }, 10000);
+    video.addEventListener(name, done, {once:true}); video.addEventListener('error', failed, {once:true});
+  });
+}
+async function pixelsAt(time) {
+  const ready = event('seeked');
+  const frame = new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('No presented frame after seek')), 5000);
+    video.requestVideoFrameCallback((_, metadata) => {clearTimeout(timer); resolve(metadata.mediaTime);});
+  });
+  video.currentTime = time; await ready; await frame;
+  const canvas = document.createElement('canvas'); canvas.width = 32; canvas.height = 18;
+  const context = canvas.getContext('2d'); context.drawImage(video, 0, 0, 32, 18);
+  return [...context.getImageData(0, 0, 32, 18).data].filter((_, index) => index % 4 !== 3);
+}
+document.getElementById('run').onclick = async () => {
+  document.getElementById('run').disabled = true;
+  for (const file of files) {
+    output.textContent = JSON.stringify(results, null, 2) + '\nChecking ' + file;
+    try {
+      const ready = event('loadeddata'); video.src = file; video.load(); await ready;
+      const black = await pixelsAt(2.5);
+      const frozenA = await pixelsAt(6.5); const frozenB = await pixelsAt(7.5);
+      const averageBlack = black.reduce((sum, value) => sum + value, 0) / black.length;
+      const freezeDifference = frozenA.reduce((sum, value, index) => sum + Math.abs(value - frozenB[index]), 0) / frozenA.length;
+      if (!(averageBlack < 5 && freezeDifference < 5 && video.videoWidth === 640)) throw new Error(JSON.stringify({reason:'Frame content check failed',averageBlack,freezeDifference,width:video.videoWidth,duration:video.duration}));
+      const playResult = video.play(); await playResult; video.pause();
+      results.push({file, playable:true, duration:video.duration, width:video.videoWidth, averageBlack, freezeDifference, seek:true, play:true, audioDecodedBytes:video.webkitAudioDecodedByteCount});
+    } catch (error) {results.push({file, playable:false, error:error.message});}
+  }
+  output.textContent = JSON.stringify({browser:navigator.userAgent, results, complete:true}, null, 2);
+  document.getElementById('run').disabled = false;
+};
+</script>
+</html>

@@ -1,0 +1,15 @@
+/devpost/learner-profile.md
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+frontend/dist/
+test-results/
+playwright-report/
+.agents/
+.claude/
+.codex/
+.aws/

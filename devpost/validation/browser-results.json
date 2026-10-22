@@ -1,0 +1,66 @@
+{
+  "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "results": [
+    {
+      "file": "h264-aac.mp4",
+      "playable": true,
+      "duration": 12,
+      "width": 640,
+      "averageBlack": 0.0023148148148148147,
+      "freezeDifference": 0,
+      "seek": true,
+      "play": true,
+      "audioDecodedBytes": 185568
+    },
+    {
+      "file": "h264-aac.mov",
+      "playable": true,
+      "duration": 12,
+      "width": 640,
+      "averageBlack": 0.0023148148148148147,
+      "freezeDifference": 0,
+      "seek": true,
+      "play": true,
+      "audioDecodedBytes": 185568
+    },
+    {
+      "file": "h264-aac.mkv",
+      "playable": true,
+      "duration": 12.021,
+      "width": 640,
+      "averageBlack": 0.0023148148148148147,
+      "freezeDifference": 0,
+      "seek": true,
+      "play": true,
+      "audioDecodedBytes": 183591
+    },
+    {
+      "file": "prores-pcm.mov",
+      "playable": false,
+      "error": "No presented frame after seek"
+    },
+    {
+      "file": "vp9-opus.webm",
+      "playable": true,
+      "duration": 12.018,
+      "width": 640,
+      "averageBlack": 0,
+      "freezeDifference": 0.02199074074074074,
+      "seek": true,
+      "play": true,
+      "audioDecodedBytes": 86721
+    },
+    {
+      "file": "preview.mp4",
+      "playable": true,
+      "duration": 12.01,
+      "width": 640,
+      "averageBlack": 0.07349537037037036,
+      "freezeDifference": 0,
+      "seek": true,
+      "play": true,
+      "audioDecodedBytes": 100962
+    }
+  ],
+  "complete": true
+}

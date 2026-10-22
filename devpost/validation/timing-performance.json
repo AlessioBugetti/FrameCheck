@@ -1,0 +1,164 @@
+{
+  "timing": [
+    {
+      "source": "offset.mkv",
+      "source_start": "4.979000",
+      "original_events": {
+        "black_start": [
+          2.021
+        ],
+        "black_end": [
+          3.021
+        ],
+        "freeze_start": [
+          2.021,
+          5.988
+        ],
+        "freeze_end": [
+          3.021,
+          8.021
+        ],
+        "silence_start": [
+          9.02383
+        ],
+        "silence_end": [
+          11.0292
+        ]
+      },
+      "preview_events": {
+        "black_start": [
+          2.03301
+        ],
+        "black_end": [
+          3.03301
+        ],
+        "freeze_start": [
+          2.03301,
+          5.99967
+        ],
+        "freeze_end": [
+          3.03301,
+          8.03301
+        ],
+        "silence_start": [
+          9.02385
+        ],
+        "silence_end": [
+          11.0292
+        ]
+      },
+      "maximum_boundary_difference": 0.012010000000000076
+    },
+    {
+      "source": "variable.mkv",
+      "source_start": "0.000000",
+      "original_events": {
+        "black_start": [
+          2.021
+        ],
+        "black_end": [
+          3.021
+        ],
+        "freeze_start": [
+          2.021,
+          6.021
+        ],
+        "freeze_end": [
+          3.021,
+          8.021
+        ],
+        "silence_start": [
+          9.02383
+        ],
+        "silence_end": [
+          11.0292
+        ]
+      },
+      "preview_events": {
+        "black_start": [
+          2.03301
+        ],
+        "black_end": [
+          3.03301
+        ],
+        "freeze_start": [
+          2.03301,
+          6.03301
+        ],
+        "freeze_end": [
+          3.03301,
+          8.03301
+        ],
+        "silence_start": [
+          9.02385
+        ],
+        "silence_end": [
+          11.0292
+        ]
+      },
+      "maximum_boundary_difference": 0.012010000000000076
+    },
+    {
+      "source": "delayed-audio.mkv",
+      "source_start": "0.000000",
+      "original_events": {
+        "black_start": [
+          2.0
+        ],
+        "black_end": [
+          3.0
+        ],
+        "freeze_start": [
+          2.0,
+          5.967
+        ],
+        "freeze_end": [
+          3.0,
+          8.0
+        ],
+        "silence_start": [
+          10.0028
+        ],
+        "silence_end": [
+          12.0082
+        ]
+      },
+      "preview_events": {
+        "black_start": [
+          2.0
+        ],
+        "black_end": [
+          3.0
+        ],
+        "freeze_start": [
+          2.0,
+          5.96667
+        ],
+        "freeze_end": [
+          3.0,
+          8.0
+        ],
+        "silence_start": [
+          10.0022
+        ],
+        "silence_end": [
+          12.0075
+        ]
+      },
+      "maximum_boundary_difference": 0.000700000000000145
+    }
+  ],
+  "performance": {
+    "duration": "299.888607",
+    "bytes": 482280008,
+    "resolution": "1920x1080",
+    "fps": 30,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "analysis_seconds": 12.257,
+    "analysis_maxrss_kib": 107508,
+    "preview_seconds": 39.71,
+    "preview_maxrss_kib": 358736,
+    "preview_bytes": 185714818
+  }
+}

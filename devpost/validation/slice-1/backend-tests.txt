@@ -1,0 +1,67 @@
+test_cancel_inflight_upload (test_api.ApiTests.test_cancel_inflight_upload) ... ok
+test_demo_range_busy_and_reset (test_api.ApiTests.test_demo_range_busy_and_reset) ... ok
+test_local_origin_and_host_restrictions (test_api.ApiTests.test_local_origin_and_host_restrictions) ... ok
+test_long_filename_preserves_original_name_and_extension (test_api.ApiTests.test_long_filename_preserves_original_name_and_extension) ... ok
+test_partial_upload_cleans_current_job (test_api.ApiTests.test_partial_upload_cleans_current_job) ... ok
+test_preview_failure_keeps_analysis (test_api.ApiTests.test_preview_failure_keeps_analysis) ... ok
+test_reset_between_upload_and_analysis_cannot_start_orphan_job (test_api.ApiTests.test_reset_between_upload_and_analysis_cannot_start_orphan_job) ... ok
+test_reset_cancels_analysis_before_cleanup (test_api.ApiTests.test_reset_cancels_analysis_before_cleanup) ... ok
+test_subprocess_timeout_terminates (test_api.ApiTests.test_subprocess_timeout_terminates) ... ok
+test_unsupported_and_invalid_inputs (test_api.ApiTests.test_unsupported_and_invalid_inputs) ... Media command failed (1): [error] /tmp/framecheck-nn8z_hu4/original: Invalid data found when processing input
+ok
+test_upload_exact_byte_boundary_and_overflow (test_api.ApiTests.test_upload_exact_byte_boundary_and_overflow) ... ok
+test_minimum_durations_clipping_and_missing_audio (test_detection.DetectorTests.test_minimum_durations_clipping_and_missing_audio) ... ok
+test_non_events_and_unpaired_end_are_ignored (test_detection.DetectorTests.test_non_events_and_unpaired_end_are_ignored) ... ok
+test_open_intervals_close_at_their_own_stream_end (test_detection.DetectorTests.test_open_intervals_close_at_their_own_stream_end) ... ok
+test_overlapping_types_and_stable_order (test_detection.DetectorTests.test_overlapping_types_and_stable_order) ... ok
+test_scientific_timestamps_with_signed_exponents (test_detection.DetectorTests.test_scientific_timestamps_with_signed_exponents) ... ok
+test_duration_and_file_size_boundaries (test_media.MediaTests.test_duration_and_file_size_boundaries) ... ok
+test_full_clip_events_begin_at_zero (test_media.MediaTests.test_full_clip_events_begin_at_zero) ... ok
+test_matrix_with_and_without_audio (test_media.MediaTests.test_matrix_with_and_without_audio) ... ok
+test_normal_sample_has_no_findings (test_media.MediaTests.test_normal_sample_has_no_findings) ... ok
+test_preview_preserves_events_for_every_matrix_row (test_media.MediaTests.test_preview_preserves_events_for_every_matrix_row) ... ok
+test_probeable_damaged_payload_fails_analysis (test_media.MediaTests.test_probeable_damaged_payload_fails_analysis) ... Media command failed (0): [info]     encoder         : Lavf60.16.100
+[info]   Stream #0:0(und): Video: wrapped_avframe, yuv420p(progressive), 640x360 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 30 fps, 30 tbn (default)
+[info]     Metadata:
+[info]       handler_name    : VideoHandler
+[info]       vendor_id       : [0][0][0][0]
+[info]       encoder         : Lavc60.31.102 wrapped_avframe
+[info]   Stream #0:1(und): Audio: pcm_s16le, 48000 Hz, mono, s16, 768 kb/s (default)
+[info]     Metadata:
+[info]       handler_name    : SoundHandler
+[info]       vendor_id       : [0][0][0][0]
+[info]       encoder         : Lavc60.31.102 pcm_s16le
+[Parsed_metadata_1 @ 0x5aa6dc65aa80] [info] frame:60   pts:30720   pts_time:2
+[Parsed_metadata_1 @ 0x5aa6dc65aa80] [info] lavfi.black_start=2
+[blackdetect @ 0x5aa6dc65a980] [info] black_start:2 black_end:3 black_duration:1
+[Parsed_metadata_2 @ 0x5aa6dc5b7600] [info] frame:90   pts:46080   pts_time:3
+[Parsed_metadata_2 @ 0x5aa6dc5b7600] [info] lavfi.black_end=3
+[freezedetect @ 0x5aa6dc5b7a00] [info] lavfi.freezedetect.freeze_start: 2
+[freezedetect @ 0x5aa6dc5b7a00] [info] lavfi.freezedetect.freeze_duration: 1
+[freezedetect @ 0x5aa6dc5b7a00] [info] lavfi.freezedetect.freeze_end: 3
+[NULL @ 0x5aa6dc547200] [error] Invalid NAL unit size (2147483647 > 3171).
+[NULL @ 0x5aa6dc547200] [error] missing picture in access unit with size 3175
+[h264 @ 0x5aa6dc5f1380] [error] Invalid NAL unit size (2147483647 > 3171).
+[h264 @ 0x5aa6dc5f1380] [error] Error splitting the input into NAL units.
+[vist#0:0/h264 @ 0x5aa6dc65ad00] [error] Error submitting packet to decoder: Invalid data found when processing input
+[vist#0:0/h264 @ 0x5aa6dc65ad00] [error] Error processing packet in decoder: Invalid data found when processing input
+[vist#0:0/h264 @ 0x5aa6dc65ad00] [error] Decoder thread returned error: Invalid data found when processing input
+[silencedetect @ 0x5aa6dc62e6c0] [info] silence_start: 9.00267
+[silencedetect @ 0x5aa6dc62e6c0] [info] silence_end: 11.52 | silence_duration: 2.51733
+[out#0/null @ 0x5aa6dc556fc0] [info] video:69kB audio:1126kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+[info] frame=  148 fps=0.0 q=-0.0 Lsize=N/A time=00:00:11.90 bitrate=N/A speed= 112x
+ok
+test_required_tools (test_media.MediaTests.test_required_tools) ... ok
+test_shared_offset_variable_rate_and_delayed_audio (test_media.MediaTests.test_shared_offset_variable_rate_and_delayed_audio) ... Executing <Task pending name='Task-974' coro=<MediaTests.test_shared_offset_variable_rate_and_delayed_audio() running at /home/abugetti/hackathon/tests/test_media.py:81> wait_for=<Future pending cb=[Task.task_wakeup()] created at /usr/lib/python3.12/asyncio/base_events.py:449> cb=[_run_until_complete_cb() at /usr/lib/python3.12/asyncio/base_events.py:182] created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.172 seconds
+ok
+test_terminal_black_freeze_and_silence_reach_stream_end (test_media.MediaTests.test_terminal_black_freeze_and_silence_reach_stream_end) ... Executing <Task pending name='Task-1090' coro=<MediaTests.test_terminal_black_freeze_and_silence_reach_stream_end() running at /home/abugetti/hackathon/tests/test_media.py:103> wait_for=<Future pending cb=[Task.task_wakeup()] created at /usr/lib/python3.12/asyncio/base_events.py:449> cb=[_run_until_complete_cb() at /usr/lib/python3.12/asyncio/base_events.py:182] created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.108 seconds
+ok
+test_unsupported_inputs_have_specific_errors (test_media.MediaTests.test_unsupported_inputs_have_specific_errors) ... Executing <Task pending name='Task-1107' coro=<MediaTests.test_unsupported_inputs_have_specific_errors() running at /home/abugetti/hackathon/tests/test_media.py:134> wait_for=<Future pending cb=[Task.task_wakeup()] created at /usr/lib/python3.12/asyncio/base_events.py:449> cb=[_run_until_complete_cb() at /usr/lib/python3.12/asyncio/base_events.py:182] created at /usr/lib/python3.12/asyncio/runners.py:100> took 0.141 seconds
+Media command failed (1): [mov,mp4,m4a,3gp,3g2,mj2 @ 0x5a2322d2e6c0] [error] moov atom not found
+[error] /tmp/framecheck-media-tests-livkeou9/invalid.mp4: Invalid data found when processing input
+ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 24.109s
+
+OK

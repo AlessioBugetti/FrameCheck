@@ -1,0 +1,170 @@
+[
+  {
+    "file": "h264-aac.mp4",
+    "bytes": 1403748,
+    "duration": "12.000000",
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p",
+        "start_time": "0.000000",
+        "duration": "12.000000"
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "pix_fmt": null,
+        "start_time": "0.000000",
+        "duration": "12.000000"
+      }
+    ],
+    "analysis_seconds": 0.223,
+    "events": [
+      "[blackdetect @ 0x5b967a7e9200] black_start:2 black_end:3 black_duration:1",
+      "[freezedetect @ 0x5b967a7e94c0] lavfi.freezedetect.freeze_start: 2",
+      "[freezedetect @ 0x5b967a7e94c0] lavfi.freezedetect.freeze_end: 3",
+      "[freezedetect @ 0x5b967a7e94c0] lavfi.freezedetect.freeze_start: 5.96667",
+      "[freezedetect @ 0x5b967a7e94c0] lavfi.freezedetect.freeze_end: 8",
+      "[silencedetect @ 0x5b967a7faac0] silence_start: 9.00267",
+      "[silencedetect @ 0x5b967a7faac0] silence_end: 11.008 | silence_duration: 2.00533"
+    ]
+  },
+  {
+    "file": "h264-aac.mov",
+    "bytes": 1403799,
+    "duration": "12.000000",
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p",
+        "start_time": "0.000000",
+        "duration": "12.000000"
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "pix_fmt": null,
+        "start_time": "0.000000",
+        "duration": "12.000000"
+      }
+    ],
+    "analysis_seconds": 0.277,
+    "events": [
+      "[blackdetect @ 0x5aa695df4440] black_start:2 black_end:3 black_duration:1",
+      "[freezedetect @ 0x5aa695df4700] lavfi.freezedetect.freeze_start: 2",
+      "[freezedetect @ 0x5aa695df4700] lavfi.freezedetect.freeze_end: 3",
+      "[freezedetect @ 0x5aa695df4700] lavfi.freezedetect.freeze_start: 5.96667",
+      "[freezedetect @ 0x5aa695df4700] lavfi.freezedetect.freeze_end: 8",
+      "[silencedetect @ 0x5aa695e05ac0] silence_start: 9.00267",
+      "[silencedetect @ 0x5aa695e05ac0] silence_end: 11.008 | silence_duration: 2.00533"
+    ]
+  },
+  {
+    "file": "h264-aac.mkv",
+    "bytes": 1396629,
+    "duration": "12.021000",
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "pix_fmt": "yuv420p",
+        "start_time": "0.021000",
+        "duration": null
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "pix_fmt": null,
+        "start_time": "0.000000",
+        "duration": null
+      }
+    ],
+    "analysis_seconds": 0.269,
+    "events": [
+      "[blackdetect @ 0x604aa7796880] black_start:2.021 black_end:3.021 black_duration:1",
+      "[freezedetect @ 0x604aa7837240] lavfi.freezedetect.freeze_start: 2.021",
+      "[freezedetect @ 0x604aa7837240] lavfi.freezedetect.freeze_end: 3.021",
+      "[freezedetect @ 0x604aa7837240] lavfi.freezedetect.freeze_start: 5.988",
+      "[freezedetect @ 0x604aa7837240] lavfi.freezedetect.freeze_end: 8.021",
+      "[silencedetect @ 0x604aa781ea00] silence_start: 9.02383",
+      "[silencedetect @ 0x604aa781ea00] silence_end: 11.0292 | silence_duration: 2.00533"
+    ]
+  },
+  {
+    "file": "prores-pcm.mov",
+    "bytes": 22639305,
+    "duration": "12.010667",
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "prores",
+        "pix_fmt": "yuv422p10le",
+        "start_time": "0.000000",
+        "duration": "12.000000"
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "pcm_s16le",
+        "pix_fmt": null,
+        "start_time": "0.000000",
+        "duration": "12.010667"
+      }
+    ],
+    "analysis_seconds": 0.305,
+    "events": [
+      "[blackdetect @ 0x7c74bc000d80] black_start:2 black_end:3 black_duration:1",
+      "[freezedetect @ 0x5af359927440] lavfi.freezedetect.freeze_start: 2",
+      "[freezedetect @ 0x5af359927440] lavfi.freezedetect.freeze_end: 3",
+      "[freezedetect @ 0x5af359927440] lavfi.freezedetect.freeze_start: 5.96667",
+      "[freezedetect @ 0x5af359927440] lavfi.freezedetect.freeze_end: 8",
+      "[silencedetect @ 0x5af359902ac0] silence_start: 9.00267",
+      "[silencedetect @ 0x5af359902ac0] silence_end: 11.008 | silence_duration: 2.00533"
+    ]
+  },
+  {
+    "file": "vp9-opus.webm",
+    "bytes": 1307750,
+    "duration": "12.018000",
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "vp9",
+        "pix_fmt": "yuv420p",
+        "start_time": "0.000000",
+        "duration": null
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "opus",
+        "pix_fmt": null,
+        "start_time": "-0.007000",
+        "duration": null
+      }
+    ],
+    "analysis_seconds": 0.228,
+    "events": [
+      "[blackdetect @ 0x579a22cd6f00] black_start:2.007 black_end:3.007 black_duration:1",
+      "[freezedetect @ 0x579a22d09200] lavfi.freezedetect.freeze_start: 2.007",
+      "[freezedetect @ 0x579a22d09200] lavfi.freezedetect.freeze_end: 3.007",
+      "[freezedetect @ 0x579a22d09200] lavfi.freezedetect.freeze_start: 6.14",
+      "[freezedetect @ 0x579a22d09200] lavfi.freezedetect.freeze_end: 8.007",
+      "[silencedetect @ 0x579a22d03bc0] silence_start: 9.00967",
+      "[silencedetect @ 0x579a22d03bc0] silence_end: 11.015 | silence_duration: 2.00533"
+    ]
+  },
+  {
+    "file": "preview.mp4",
+    "preview_seconds": 0.307,
+    "events": [
+      "[blackdetect @ 0x60c303938200] black_start:2 black_end:3 black_duration:1",
+      "[freezedetect @ 0x60c303938480] lavfi.freezedetect.freeze_start: 2",
+      "[freezedetect @ 0x60c303938480] lavfi.freezedetect.freeze_end: 3",
+      "[freezedetect @ 0x60c303938480] lavfi.freezedetect.freeze_start: 5.96667",
+      "[freezedetect @ 0x60c303938480] lavfi.freezedetect.freeze_end: 8",
+      "[silencedetect @ 0x60c3039ae040] silence_start: 9.00269",
+      "[silencedetect @ 0x60c3039ae040] silence_end: 11.008 | silence_duration: 2.00531"
+    ]
+  }
+]
