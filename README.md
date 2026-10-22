@@ -1,5 +1,7 @@
 # FrameCheck
 
+[MIT License](LICENSE) · Copyright © 2026 Alessio Bugetti
+
 Check a processed video before delivering it. FrameCheck analyzes the original locally and presents candidate black frames, frozen frames and silence beside a synchronized player and timeline. Findings require human judgment; they are not confirmed defects.
 
 Built for the [Build With AI: Basics hackathon](https://learn-ai-basics.devpost.com/) on Devpost, using the Devpost Learn Skill Pack. Planning documents are available in [devpost/](devpost/).
